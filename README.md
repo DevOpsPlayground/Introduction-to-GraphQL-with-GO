@@ -4,7 +4,7 @@ This is a very challenging to implement playground where we are using a new open
 
 Do you have a GitHub account? If not sign up here: https://github.com/
 You may want to create a throw away GitHub accont for this playground because of integrations and having to authorise GitHub for use on our instance. 
-> Note: The instances will be shortly destroyed after the playground so any sensitive keys will be removed and not stored.
+> Note: The instances will be destroyed shortly after the playground so any sensitive keys will be removed and not stored.
 
 Do you have GO installed?
 If you are not using the playground provided infrastructure, please do the following:-
@@ -63,8 +63,7 @@ schema {
 
 # Stage 3: Implementation!
 
-Run the command
-`go run github.com/99designs/gqlgen generate`
+Run the command `go run github.com/99designs/gqlgen generate`
 
 Don't worry about the scary looking `validation failed` and `exit status 1` output from the command
 
@@ -80,8 +79,7 @@ Find the func `Passengers` and replace the implementation with
 return datalayer.GetAllPassengers()
 ```
 
-Run the command
-`go run ./server.go`
+Run the command `go run ./server.go`
 
 In a web browser navigate to `http://localhost:8080`
 
@@ -115,8 +113,7 @@ Find the func `CreatePassenger` and replace the implementation with
 return datalayer.CreatePassenger(name)
 ```
 
-Run the command
-`go run ./server.go`
+Run the command `go run ./server.go`
 
 Open the web browser to `http://localhost:8080` again
 
@@ -147,9 +144,11 @@ Control-C the running command
 Now we've created a passenger lets put some data in the flights table
 
 To do this run the below command using the json file from `dynamodb/flight_data.json`
+
 `aws dynamodb batch-write-item --request-items file://flight_data.json`
 
 Return to your `flights` project and open `graph/schema.graphqls`
+
 Modify the `Query` type to look like this:-
 ```
 type Query {
@@ -158,8 +157,7 @@ type Query {
 }
 ```
 
-Run the command
-`go run github.com/99designs/gqlgen generate`
+Run the command `go run github.com/99designs/gqlgen generate`
 
 Open `graph/schema.resolvers.go`
 
@@ -168,8 +166,7 @@ Find the func `Flights` and replace the implementation with
 return datalayer.GetAllFlights()
 ```
 
-Run the command
-`go run ./server.go`
+Run the command `go run ./server.go`
 
 Open the web browser to `http://localhost:8080` again
 
@@ -198,4 +195,45 @@ Execute the query and you should see the result
 }
 ```
 
+Control-C the running command
+
 Now lets book a passenger onto this flight
+
+Return to your `flights` project and open `graph/schema.graphqls`
+
+Modify the `Mutation` type to look like this:-
+```
+type Mutation {
+  createPassenger(name: String!): Passenger!
+  bookFlight(flightNumber: String!, passengerId: ID!): Boolean!
+}
+```
+
+Run the command `go run github.com/99designs/gqlgen generate`
+
+Open `graph/schema.resolvers.go`
+
+Find the func `BookFlight` and replace the implementation with
+```go
+return datalayer.BookFlight(flightNumber, passengerID)
+```
+
+Run the command `go run ./server.go`
+
+Open the web browser to `http://localhost:8080` again
+
+Paste the below query into the left panel of the web page
+```
+mutation BookFlight {
+  bookFlight(flightNumber: "BA-386", passengerId: "<GUID_OF_PASSENGER>")
+}
+```
+
+Execute the query and you should see the result
+```
+{
+  "data": {
+    "bookFlight": true
+  }
+}
+```
