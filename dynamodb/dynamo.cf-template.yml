@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Transform: AWS::Serverless-2016-10-31
+
+Description: AWS Dynamo DB table for storing flight details
+
+Resources:
+
+  rFlightsTableDynamo:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        -
+          AttributeName: "number"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "number"
+          KeyType: "HASH"
+      BillingMode: "PROVISIONED"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: "flights"
+      SSESpecification:
+        SSEEnabled: false
+
+  rPassengersTableDynamo:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        -
+          AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "id"
+          KeyType: "HASH"
+      BillingMode: "PROVISIONED"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: "passengers"
+      SSESpecification:
+        SSEEnabled: false

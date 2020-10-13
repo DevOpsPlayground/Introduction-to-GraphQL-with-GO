@@ -1,0 +1,24 @@
+{
+    "flights": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "number": {"S":"BA-386"},
+                    "capacity": {"N":"500"},
+                    "captain": {"S":"Jane Doe"},
+                    "plane": {"S":"Boeing 747"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "number": {"S":"BA-284"},
+                    "capacity": {"N":"300"},
+                    "captain": {"S":"John Doe"},
+                    "plane": {"S":"Airbus"}
+                }
+            }
+        }
+    ]
+}
