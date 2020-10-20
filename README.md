@@ -87,6 +87,7 @@ return datalayer.GetAllPassengers()
 Run the command `go run ./server.go`
 
 If your using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+
 If running locally then, in a web browser navigate to `http://localhost:8080`
 
 Paste the below query into the left panel of the web page
@@ -122,6 +123,7 @@ return datalayer.CreatePassenger(name)
 Run the command `go run ./server.go`
 
 If your using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+
 If running locally then, in a web browser navigate to `http://localhost:8080`
 
 Paste the below query into the left panel of the web page
@@ -176,6 +178,7 @@ return datalayer.GetAllFlights()
 Run the command `go run ./server.go`
 
 If your using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+
 If running locally then, in a web browser navigate to `http://localhost:8080`
 
 Paste the below query into the left panel of the web page
@@ -229,6 +232,7 @@ return datalayer.BookFlight(flightNumber, passengerID)
 Run the command `go run ./server.go`
 
 If your using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+
 If running locally then, in a web browser navigate to `http://localhost:8080`
 
 Paste the below query into the left panel of the web page
