@@ -20,8 +20,11 @@ If you are not using the playground provided infrastructure, please do the follo
 Create a directory for your project, and initialise it as a Go Module:
 
 `mkdir flights`
+
 `cd flights`
+
 `go mod init github.com/<GITHUB_USERNAME>/flights`
+
 `go get github.com/99designs/gqlgen`
 
 Create the project skeleton
@@ -63,7 +66,9 @@ schema {
 
 # Stage 3: Implementation!
 
-Run the command `go run github.com/99designs/gqlgen generate`
+Run the command
+
+`go run github.com/99designs/gqlgen generate`
 
 Don't worry about the scary looking `validation failed` and `exit status 1` output from the command
 
@@ -81,7 +86,8 @@ return datalayer.GetAllPassengers()
 
 Run the command `go run ./server.go`
 
-In a web browser navigate to `http://localhost:8080`
+If your using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+If running locally then, in a web browser navigate to `http://localhost:8080`
 
 Paste the below query into the left panel of the web page
 ```
@@ -115,7 +121,8 @@ return datalayer.CreatePassenger(name)
 
 Run the command `go run ./server.go`
 
-Open the web browser to `http://localhost:8080` again
+If your using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+If running locally then, in a web browser navigate to `http://localhost:8080`
 
 Paste the below query into the left panel of the web page
 ```
@@ -168,7 +175,8 @@ return datalayer.GetAllFlights()
 
 Run the command `go run ./server.go`
 
-Open the web browser to `http://localhost:8080` again
+If your using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+If running locally then, in a web browser navigate to `http://localhost:8080`
 
 Paste the below query into the left panel of the web page
 ```
@@ -220,7 +228,8 @@ return datalayer.BookFlight(flightNumber, passengerID)
 
 Run the command `go run ./server.go`
 
-Open the web browser to `http://localhost:8080` again
+If your using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+If running locally then, in a web browser navigate to `http://localhost:8080`
 
 Paste the below query into the left panel of the web page
 ```
@@ -237,3 +246,68 @@ Execute the query and you should see the result
   }
 }
 ```
+
+Paste the below query into the left panel of the web page
+```
+query Flights {
+  flights {
+    number,
+    passengers {
+      name
+    },
+  }
+}
+```
+
+Execute the query and you should see the result
+```
+{
+  "data": {
+    "flights": [
+      {
+        "number": "BA-386",
+        "passengers": [
+          {
+            "name": "Bob"
+          }
+        ]
+      },
+      {
+        "number": "BA-284",
+        "passengers": null
+      }
+    ]
+  }
+}
+```
+
+The above result you might use for a mobile app as the screen is small so only a small number of details should be shown.
+However if you were writing a desktop app instead then you may want to show more details.
+You can easily change the query to return more details from the flights like so:-
+
+```
+query Flights {
+  flights {
+    number,
+    passengers {
+      name
+    },
+    capacity,
+    captain
+  }
+}
+```
+
+For completeness, please modify the `Mutation` type to look like this:-
+```
+type Mutation {
+  createPassenger(name: String!): Passenger!
+  deletePassenger(passengerId: ID!): Boolean!
+  bookFlight(flightNumber: String!, passengerId: ID!): Boolean!
+  cancelBooking(flightNumber: String!, passengerId: ID!): Boolean!
+}
+```
+
+Run the command `go run github.com/99designs/gqlgen generate`
+and connect up the appropriate methods from the datalayer.
+You can then have a play!
