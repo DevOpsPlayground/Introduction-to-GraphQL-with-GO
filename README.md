@@ -1,12 +1,8 @@
 # Initial Set Up - Check Before You Start!
 
-This is a very challenging to implement playground where we are using a new open source technology in order to be able to deliever it. As it is all very new and one of the first playgrounds to test this out please feel free to continue the playground from your local machine at any point. 
+This is a very challenging to implement playground where we are using a new open source technology in order to be able to deliver it. As it is all very new and one of the first playgrounds to test this out please feel free to continue the playground from your local machine at any point. 
 
-Do you have a GitHub account? If not sign up here: https://github.com/
-You may want to create a throw away GitHub accont for this playground because of integrations and having to authorise GitHub for use on our instance. 
-> Note: The instances will be destroyed shortly after the playground so any sensitive keys will be removed and not stored.
-
-Do you have GO installed?
+Do you have GO installed? 
 If you are not using the playground provided infrastructure, please do the following:-
 - Install GO
 - Create a AWS account
@@ -17,13 +13,21 @@ If you are not using the playground provided infrastructure, please do the follo
 
 # Stage 1: Setting up the project
 
+If using the playground provided infrastructure:-
+
+`Use the link provided to access a VS code interface in the browser and a command line also access via the browser
+
+Please make a note of the animal you have been assigned from the link e.g. eagle`
+
+Go to the command line
+
 Create a directory for your project, and initialise it as a Go Module:
 
 `mkdir flights`
 
 `cd flights`
 
-`go mod init github.com/<GITHUB_USERNAME>/flights`
+`go mod init flights`
 
 `go get github.com/99designs/gqlgen`
 
@@ -75,6 +79,8 @@ Don't worry about the scary looking `validation failed` and `exit status 1` outp
 Open and observe `graph/model/models_gen.go` it should contain a `Flight` and `Passenger` struct
 
 Download `datalayer/datalayer.go` from this repository and place inside your `flights` project at the location `datalayer/datalayer.go`
+
+Open the newly placed `datalayer.go` and edit the file to replace `<YOUR_ANIMAL_NAME_HERE>` with your animal name
 
 Open `graph/schema.resolvers.go`
 Delete the content below and including `// !!! WARNING !!!`
@@ -152,7 +158,9 @@ Control-C the running command
 
 Now we've created a passenger lets put some data in the flights table
 
-To do this run the below command using the json file from `dynamodb/flight_data.json`
+To do this open the file `dynamodb/flight_data.json` and replace `<YOUR_ANIMAL_NAME_HERE>` with your animal name
+
+Then run the below command with the file:-
 
 `aws dynamodb batch-write-item --request-items file://flight_data.json`
 

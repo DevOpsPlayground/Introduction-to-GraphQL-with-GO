@@ -1,15 +1,21 @@
 package datalayer
 
 import (
+	"flights/graph/model"
 	"fmt"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
-	"github.com/ecsdderekwicks/flights/graph/model"
 	"github.com/google/uuid"
 )
+
+const AnimalName = "<YOUR_ANIMAL_NAME_HERE>"
+
+var PassengersTableName string = fmt.Sprintf("playground-passengers-%s", AnimalName)
+
+var FlightsTableName string = fmt.Sprintf("playground-flights-%s", AnimalName)
 
 func initialiseDb() *dynamodb.DynamoDB {
 	// Initialize a session that the SDK will use to load
@@ -48,12 +54,9 @@ func CreatePassenger(name string) (*model.Passenger, error) {
 		return nil, err
 	}
 
-	// Create item in table passengers
-	tableName := "passengers"
-
 	input := &dynamodb.PutItemInput{
 		Item:      av,
-		TableName: aws.String(tableName),
+		TableName: aws.String(PassengersTableName),
 	}
 
 	_, err = svc.PutItem(input)
@@ -75,7 +78,7 @@ func DeletePassenger(passengerId string) (bool, error) {
 				S: aws.String(passengerId),
 			},
 		},
-		TableName: aws.String("passengers"),
+		TableName: aws.String(PassengersTableName),
 	}
 
 	_, err := svc.DeleteItem(input)
@@ -129,7 +132,7 @@ func deleteFromSet(db *dynamodb.DynamoDB, table, keyAttribute, key, setAttribute
 func BookFlight(flightNumber string, passengerId string) (bool, error) {
 	svc := initialiseDb()
 
-	err := addToSet(svc, "flights", "number", flightNumber, "passengers", passengerId)
+	err := addToSet(svc, FlightsTableName, "number", flightNumber, "passengers", passengerId)
 
 	if err != nil {
 		fmt.Println(err.Error())
@@ -142,7 +145,7 @@ func BookFlight(flightNumber string, passengerId string) (bool, error) {
 func CancelBooking(flightNumber string, passengerId string) (bool, error) {
 	svc := initialiseDb()
 
-	err := deleteFromSet(svc, "flights", "number", flightNumber, "passengers", passengerId)
+	err := deleteFromSet(svc, FlightsTableName, "number", flightNumber, "passengers", passengerId)
 
 	if err != nil {
 		fmt.Println(err.Error())
@@ -163,7 +166,7 @@ type DynamoFlight struct {
 func GetAllFlights() ([]*model.Flight, error) {
 	svc := initialiseDb()
 
-	result, err := scanTable(svc, "flights")
+	result, err := scanTable(svc, FlightsTableName)
 
 	if err != nil {
 		fmt.Println("Query API call failed:")
@@ -228,7 +231,7 @@ func GetPassenger(passengerId string) (*model.Passenger, error) {
 				S: aws.String(passengerId),
 			},
 		},
-		TableName: aws.String("passengers"),
+		TableName: aws.String(PassengersTableName),
 	}
 
 	dynamoItem, err := svc.GetItem(input)
@@ -255,7 +258,7 @@ func GetPassenger(passengerId string) (*model.Passenger, error) {
 func GetAllPassengers() ([]*model.Passenger, error) {
 	svc := initialiseDb()
 
-	result, err := scanTable(svc, "passengers")
+	result, err := scanTable(svc, PassengersTableName)
 
 	if err != nil {
 		fmt.Println("Query API call failed:")
