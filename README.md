@@ -14,10 +14,11 @@ If you are not using the playground provided infrastructure, please do the follo
 # Stage 1: Setting up the project
 
 If using the playground provided infrastructure:-
+``
+Use the link provided to access a VS code interface in the browser and a command line also access via the browser
 
-`Use the link provided to access a VS code interface in the browser and a command line also access via the browser
-
-Please make a note of the animal you have been assigned from the link e.g. eagle`
+Please make a note of the animal you have been assigned from the link e.g. eagle
+``
 
 Go to the command line
 
