@@ -13,9 +13,9 @@ import (
 
 const AnimalName = "<YOUR_ANIMAL_NAME_HERE>"
 
-var PassengersTableName string = fmt.Sprintf("playground-passengers-%s", AnimalName)
+var PassengersTableName string = fmt.Sprintf("playground-%s-passengers", AnimalName)
 
-var FlightsTableName string = fmt.Sprintf("playground-flights-%s", AnimalName)
+var FlightsTableName string = fmt.Sprintf("playground-%s-flights", AnimalName)
 
 func initialiseDb() *dynamodb.DynamoDB {
 	// Initialize a session that the SDK will use to load

@@ -14,14 +14,24 @@ If you are not using the playground provided infrastructure, please do the follo
 # Stage 1: Setting up the project
 
 If using the playground provided infrastructure:-
+
 ```
-Use the link provided to access a VS code interface in the browser
-and a command line also accessed via the browser
+Go to in your browser `https://digital-meetup-signed-users.s3-eu-west-1.amazonaws.com/index.html`
+
+Enter your meetup display name (this is case sensitive). 
+
+A link to a Terminal (command line) and an IDE should appear
 
 Please make a note of the animal you have been assigned from the link e.g. eagle
 ```
 
 Go to the command line
+
+If using the playground provided infrastructure:-
+
+```
+cd GraphQL
+```
 
 Create a directory for your project, and initialise it as a Go Module:
 
@@ -36,6 +46,10 @@ Create a directory for your project, and initialise it as a Go Module:
 Create the project skeleton
 
 `go run github.com/99designs/gqlgen init`
+
+Copy over a pre-prepared file using the command
+
+`mkdir -p flights/datalayer && cp Introduction-to-GraphQL-with-GO/datalayer/datalayer.go flights/datalayer/datalayer.go`
 
 # Stage 2: Creating the schema
 
@@ -80,12 +94,15 @@ Don't worry about the scary looking `validation failed` and `exit status 1` outp
 
 Open and observe `graph/model/models_gen.go` it should contain a `Flight` and `Passenger` struct
 
-Download `datalayer/datalayer.go` from this repository and place inside your `flights` project at the location `datalayer/datalayer.go`
-
-Open the newly placed `datalayer.go` and edit the file to replace `<YOUR_ANIMAL_NAME_HERE>` with your animal name
+Open the newly placed `datalayer/datalayer.go` and edit the file to replace `<YOUR_ANIMAL_NAME_HERE>` with your animal name
 
 Open `graph/schema.resolvers.go`
 Delete the content below and including `// !!! WARNING !!!`
+
+Add the below into the file imports
+```go
+flights/datalayer
+```
 
 Find the func `Passengers` and replace the implementation with
 ```go
@@ -164,7 +181,7 @@ To do this open the file `dynamodb/flight_data.json` and replace `<YOUR_ANIMAL_N
 
 Then run the below command with the file:-
 
-`aws dynamodb batch-write-item --request-items file://flight_data.json`
+`aws dynamodb batch-write-item --region eu-west-2 --request-items file://~/GraphQL/Introduction-to-GraphQL-with-GO/dynamodb/flight_data.json`
 
 Return to your `flights` project and open `graph/schema.graphqls`
 

@@ -1,5 +1,5 @@
 {
-    "playground-flights-<YOUR_ANIMAL_NAME_HERE>": [
+    "playground-<YOUR_ANIMAL_NAME_HERE>-flights": [
         {
             "PutRequest": {
                 "Item": {
