@@ -35,11 +35,11 @@ cd GraphQL
 
 Create a directory for your project, and initialise it as a Go Module:
 
-```
-mkdir flights
-cd flights
-go mod init flights
-```
+`mkdir flights`
+
+`cd flights`
+
+`go mod init flights`
 
 `go get github.com/99designs/gqlgen`
 
