@@ -33,7 +33,7 @@ If using the playground provided infrastructure:-
 cd GraphQL
 ```
 
-Create a directory for your project, and initialise it as a Go Module:
+Create a directory for your project, and initialise it as a Go Module
 
 `mkdir flights`
 
