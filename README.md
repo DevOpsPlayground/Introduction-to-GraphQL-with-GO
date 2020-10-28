@@ -41,6 +41,8 @@ Create a directory for your project, and initialise it as a Go Module:
 
 `go mod init flights`
 
+Retrieve the required `gqlgen` package
+
 `go get github.com/99designs/gqlgen`
 
 Create the project skeleton
