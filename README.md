@@ -35,11 +35,11 @@ cd GraphQL
 
 Create a directory for your project, and initialise it as a Go Module:
 
-`mkdir flights`
-
-`cd flights`
-
-`go mod init flights`
+```
+mkdir flights
+cd flights
+go mod init flights
+```
 
 `go get github.com/99designs/gqlgen`
 
@@ -49,7 +49,7 @@ Create the project skeleton
 
 Copy over a pre-prepared file using the command
 
-`mkdir -p flights/datalayer && cp Introduction-to-GraphQL-with-GO/datalayer/datalayer.go flights/datalayer/datalayer.go`
+`mkdir -p datalayer && cp ~/GraphQL/Introduction-to-GraphQL-with-GO/datalayer/datalayer.go datalayer/datalayer.go`
 
 # Stage 2: Creating the schema
 
@@ -144,6 +144,8 @@ Find the func `CreatePassenger` and replace the implementation with
 ```go
 return datalayer.CreatePassenger(name)
 ```
+
+NOTE: At this point there is no longer a use of `fmt.Errorf()` so please remove the unused `"fmt"` from the imports. This may come up multiple times below
 
 Run the command `go run ./server.go`
 
