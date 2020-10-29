@@ -113,7 +113,7 @@ return datalayer.GetAllPassengers()
 
 Run the command `go run ./server.go`
 
-If you're using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+If you're using the provisioned infrastructure go to `http://<your-animal>.devopsplayground.org:8080`
 
 If running locally then, in a web browser navigate to `http://localhost:8080`
 
@@ -151,7 +151,7 @@ NOTE: At this point there is no longer a use of `fmt.Errorf()` so please remove 
 
 Run the command `go run ./server.go`
 
-If you're using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+If you're using the provisioned infrastructure go to `http://<your-animal>.devopsplayground.org:8080`
 
 If running locally then, in a web browser navigate to `http://localhost:8080`
 
@@ -208,7 +208,7 @@ return datalayer.GetAllFlights()
 
 Run the command `go run ./server.go`
 
-If you're using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+If you're using the provisioned infrastructure go to `http://<your-animal>.devopsplayground.org:8080`
 
 If running locally then, in a web browser navigate to `http://localhost:8080`
 
@@ -262,7 +262,7 @@ return datalayer.BookFlight(flightNumber, passengerID)
 
 Run the command `go run ./server.go`
 
-If you're using the provisioned infrastructure go to `http://your-animal.devopsplayground.org:8080`
+If you're using the provisioned infrastructure go to `http://<your-animal>.devopsplayground.org:8080`
 
 If running locally then, in a web browser navigate to `http://localhost:8080`
 
